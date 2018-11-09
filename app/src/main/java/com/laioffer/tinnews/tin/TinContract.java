@@ -11,7 +11,7 @@ public interface TinContract {
     interface View extends MvpContract.View<Presenter> {
         //5.6 add showNewsCard
         void showNewsCard(List<News> newsList);
-        void onError(); //Toast
+        void onError(String message); //Toast
     }
 
     interface Presenter extends MvpContract.Presenter<View, Model> {
@@ -20,7 +20,7 @@ public interface TinContract {
 
         //8.1
         void saveFavoriteNews(News news);
-        void onError();
+        void onError(String message);
     }
 
     interface Model extends MvpContract.Model<Presenter> {

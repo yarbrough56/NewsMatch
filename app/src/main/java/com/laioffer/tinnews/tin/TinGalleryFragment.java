@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.laioffer.tinnews.R;
 import com.laioffer.tinnews.common.TinBasicFragment;
@@ -107,8 +108,8 @@ public class TinGalleryFragment extends MvpFragment<TinContract.Presenter> imple
     }
 
     @Override
-    public void onError() {
-
+    public void onError(String message) {
+        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
     }
 
 

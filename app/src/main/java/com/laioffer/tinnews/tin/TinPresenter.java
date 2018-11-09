@@ -59,8 +59,10 @@ public class TinPresenter implements TinContract.Presenter {
     }
 
     @Override
-    public void onError() {
-
+    public void onError(String message) {
+        if (view != null) {
+            view.onError(message);
+        }
     }
 
 
