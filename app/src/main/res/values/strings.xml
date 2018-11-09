@@ -3,11 +3,13 @@
     <string name="share_link">Share The Link</string>
     <string name="copy_the_link">Copy The Link</string>
 
-    <!-- add bottom bar string -->
+
     <string name="tin">Tin</string>
     <string name="save">Save</string>
     <string name="profile">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--4.2-->
+    <string name="author_unknown">Unknown Author</string>
 </resources>
