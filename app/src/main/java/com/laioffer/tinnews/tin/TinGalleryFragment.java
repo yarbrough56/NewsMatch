@@ -106,6 +106,10 @@ public class TinGalleryFragment extends MvpFragment<TinContract.Presenter> imple
         }
     }
 
+    @Override
+    public void onError() {
+
+    }
 
 
     //8.5 TinGalleryFragment triggers the saveFavoriteNews
