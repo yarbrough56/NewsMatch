@@ -3,6 +3,8 @@ package com.laioffer.tinnews.save;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,10 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
     private TextView author;
     private TextView description;
 
+    private SavedNewsAdapter savedNewsAdapter;
+    private TextView emptyState;
+
+
     public static SavedNewsFragment newInstance() {
         SavedNewsFragment fragment = new SavedNewsFragment();
         return fragment;
@@ -43,16 +49,11 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
         View view = inflater.inflate(R.layout.fragment_saved_news, container, false);
 
         //4.3
-        author = view.findViewById(R.id.author);
-        description = view.findViewById(R.id.description);
-        description.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinFragmentManager.doFragmentTransaction(SavedNewsDetailedFragment.newInstance());
-            }
-        });
-
-
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        savedNewsAdapter = new SavedNewsAdapter(tinFragmentManager);
+        recyclerView.setAdapter(savedNewsAdapter);
+        emptyState = view.findViewById(R.id.empty_state);
         return view;
     }
 
@@ -65,10 +66,13 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
     //3.6
     @Override
     public void loadSavedNews(List<News> newsList) {
-        if (newsList.size() > 0) {
-            News news = newsList.get(newsList.size() - 1);
-            author.setText(news.getAuthor());
-            description.setText(news.getDescription());
+        if (newsList.size() == 0) {
+            emptyState.setVisibility(View.VISIBLE);
+        } else {
+            emptyState.setVisibility(View.GONE);
         }
+        if (newsList.size() != 0)
+            savedNewsAdapter.setNewsList(newsList);
+
     }
 }
