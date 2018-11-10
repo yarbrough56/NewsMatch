@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import com.laioffer.tinnews.R;
 import com.laioffer.tinnews.common.TinBasicFragment;
+import com.laioffer.tinnews.common.ViewModelAdapter;
 import com.laioffer.tinnews.mvp.MvpFragment;
 import com.laioffer.tinnews.retrofit.response.News;
 import com.laioffer.tinnews.save.detail.SavedNewsDetailedFragment;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
     private TextView author;
     private TextView description;
 
-    private SavedNewsAdapter savedNewsAdapter;
+    private ViewModelAdapter savedNewsAdapter;
     private TextView emptyState;
 
 
@@ -51,7 +53,7 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
         //4.3
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        savedNewsAdapter = new SavedNewsAdapter(tinFragmentManager);
+        savedNewsAdapter = new ViewModelAdapter();
         recyclerView.setAdapter(savedNewsAdapter);
         emptyState = view.findViewById(R.id.empty_state);
         return view;
@@ -71,8 +73,14 @@ public class SavedNewsFragment extends MvpFragment<SavedNewsContract.Presenter> 
         } else {
             emptyState.setVisibility(View.GONE);
         }
-        if (newsList.size() != 0)
-            savedNewsAdapter.setNewsList(newsList);
+        if (newsList.size() != 0) {
+            List<SavedNewsViewModel> models = new LinkedList<>();
+            for (News news : newsList) {
+                models.add(new SavedNewsViewModel(news,tinFragmentManager));
+            }
+            savedNewsAdapter.addViewModels(models);
+        }
+
 
     }
 }

@@ -10,7 +10,9 @@ import java.util.List;
 
 public class ViewModelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<BaseViewModel> viewModels;
+    //sparseArrayCompat ==> hashMap
     private final SparseArrayCompat<BaseViewModel> viewTypeMap;
+
 
     public ViewModelAdapter() {
         viewModels = new ArrayList<>();
